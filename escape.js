@@ -19,6 +19,25 @@ let estadoDelJuego = {
     hangarUbicacion = opciones[Math.floor(Math.random() * opciones.length)];
   }
   
+  // Gestión del audio
+  let audio = document.getElementById('background-audio');
+  let haInteractuado = false;
+  
+  function reproducirAudio() {
+    if (!haInteractuado) {
+      audio.play().then(() => {
+        console.log("Música reproduciéndose correctamente");
+        haInteractuado = true;
+      }).catch(error => {
+        console.log("Error al reproducir música:", error);
+      });
+    }
+  }
+  
+  audio.addEventListener('loadeddata', () => {
+    console.log("Audio cargado, listo para reproducir");
+  });
+  
   // Función para actualizar el estado del juego en la página
   function actualizarEstado() {
     const estadoElemento = document.getElementById('estadoJuego');
@@ -30,6 +49,11 @@ let estadoDelJuego = {
     const narrativaElemento = document.getElementById('narrativa');
     const opcionesElemento = document.getElementById('opciones');
     narrativaElemento.textContent = mensaje;
+  
+    if (!mostrarOpciones || estadoDelJuego.jugador.salud <= 0) {
+      audio.pause();
+      console.log("Música pausada: juego terminado");
+    }
   
     if (mostrarOpciones && estadoDelJuego.jugador.salud > 0) {
       if (estadoDelJuego.jugador.posicion === "sala de máquinas") {
@@ -66,10 +90,12 @@ let estadoDelJuego = {
           <button onclick="tomarDecision('G')">Ir a nave de escape</button>
         `;
       } else if (estadoDelJuego.jugador.posicion === "nave de escape") {
-        opcionesElemento.innerHTML = ''; // Sin opciones al ganar
+        opcionesElemento.innerHTML = '';
+        audio.pause();
+        console.log("Música pausada: victoria");
       }
     } else {
-      opcionesElemento.innerHTML = ''; // Limpiar opciones si no se deben mostrar
+      opcionesElemento.innerHTML = '';
     }
   }
   
@@ -206,7 +232,7 @@ let estadoDelJuego = {
     }
   }
   
-  // Determinar la ubicación del hangar al inicio del juego
+  // Inicialización
   determinarHangar();
-  // Inicializar estado al cargar la página
   actualizarEstado();
+  document.addEventListener('click', reproducirAudio);
