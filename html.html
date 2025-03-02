@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ESCAPE</title>
+    <style>
+        body {
+            font-family: 'Courier New', monospace;
+            text-align: center;
+            background-color: #000;
+            color: #00ff00;
+        }
+        h1 {
+            color: #00ff00;
+            text-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00, 0 0 30px #00ff00;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            background-color: #222;
+            color: #00ff00;
+            border: 2px solid #00ff00;
+            cursor: pointer;
+            font-family: 'Courier New', monospace;
+            text-shadow: 0 0 5px #00ff00, 0 0 10px #00ff00;
+        }
+        button:hover {
+            background-color: #333;
+            box-shadow: 0 0 10px #00ff00;
+        }
+        button:disabled {
+            background-color: #000;
+            color: #666;
+            cursor: not-allowed;
+        }
+        #narrativa {
+            margin: 20px;
+            padding: 10px;
+            background-color: #000;
+            border-radius: 5px;
+            border: 1px solid #00ff00;
+            font-size: 1.2em;
+            text-shadow: 0 0 5px #00ff00;
+        }
+        #estadoJuego {
+            font-weight: bold;
+            color: #00ff00;
+            text-shadow: 0 0 5px #00ff00;
+        }
+        #opciones {
+            margin: 10px;
+        }
+        body::before {
+            content: " ";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://cdn.pixabay.com/photo/2017/10/12/19/54/green-2847469_960_720.jpg') repeat;
+            opacity: 0.05;
+            z-index: -1;
+        }
+        /* Ocultar el reproductor de audio por defecto */
+        #background-audio {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>ESCAPE O MUERA</h1>
+    <div id="narrativa">La alarma de emergencia resuena por toda la nave Caída Libertaria. Algo ha salido mal. Un alien se ha sido liberado, la tripulación ya no existe. Eres el único sobreviviente, y tu única esperanza es llegar a la nave de escape Misión Kalcha. El sistema está colapsando y el alien acecha en las sombras. ¿Qué haces?</div>
+    <div id="opciones">
+        <button onclick="tomarDecision('A')">Ir a pasillo principal</button>
+    </div>
+    <p id="estadoJuego">Cargando estado...</p>
+    <!-- Audio de fondo -->
+    <audio id="background-audio" autoplay loop>
+        <source src="Alien.mp3" type="audio/mpeg">
+        Tu navegador no soporta el elemento de audio.
+    </audio>
+    <script src="escape.js"></script>
+</body>
+</html>
